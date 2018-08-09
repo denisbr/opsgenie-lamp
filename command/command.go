@@ -200,6 +200,20 @@ func NewIntegrationClient(c *gcli.Context) (*ogcli.OpsGenieIntegrationClient, er
 	return intCli, nil
 }
 
+// NewIntegrationClient instantiates a new OpsGenieIntegrationClient.
+func NewCustomerLogClient(c *gcli.Context) (*ogcli.OpsGenieCustomerLogClient, error) {
+	cli := initialize(c)
+	intCli, cliErr := cli.CustomerLog()
+
+	if cliErr != nil {
+		message := "Can not create the customer log client. " + cliErr.Error()
+		fmt.Printf("%s\n", message)
+		return nil, errors.New(message)
+	}
+	printVerboseMessage("Customer Log Client created..")
+	return intCli, nil
+}
+
 // NewPolicyClient instantiates a new OpsGeniePolicyClient.
 func NewPolicyClient(c *gcli.Context) (*ogcli.OpsGeniePolicyClient, error) {
 	cli := initialize(c)

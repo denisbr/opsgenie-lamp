@@ -1031,6 +1031,40 @@ func disableCommand() gcli.Command {
 		},	}
 	return cmd
 }
+func customerLogListDownloadablesCommand() gcli.Command {
+	commandFlags := []gcli.Flag{
+		gcli.StringFlag{
+			Name:  "after",
+			Usage: "Log files after this date",
+		},
+	}
+	flags := append(commonFlags, commandFlags...)
+	cmd := gcli.Command{Name: "listLogs",
+		Flags:  flags,
+		Usage:  "List Downloadable Customer Logs.",
+		Action: func(c *gcli.Context) error {
+			command.ListDownloadableLogs(c)
+			return nil
+		},	}
+	return cmd
+}
+func customerLogGetLinkCommand() gcli.Command {
+	commandFlags := []gcli.Flag{
+		gcli.StringFlag{
+			Name:  "logFile",
+			Usage: "Buraya neyin logFile'i onun yazilmasi lazim",
+		},
+	}
+	flags := append(commonFlags, commandFlags...)
+	cmd := gcli.Command{Name: "getlogLink",
+		Flags:  flags,
+		Usage:  "Get link of log file",
+		Action: func(c *gcli.Context) error {
+			command.GetLogLink(c)
+			return nil
+		},	}
+	return cmd
+}
 
 func initCommands(app *gcli.App) {
 	app.Commands = []gcli.Command{
@@ -1062,6 +1096,8 @@ func initCommands(app *gcli.App) {
 		addDetailsCommand(),
 		removeDetailsCommand(),
 		escalateToNextActionCommand(),
+		customerLogGetLinkCommand(),
+		customerLogListDownloadablesCommand(),
 	}
 }
 
